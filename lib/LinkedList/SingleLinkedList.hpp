@@ -25,15 +25,40 @@ LinkList Tail;
  * 合适的地方使用合适的名字，代码可读性更高
  **/
 
+class SingleLinkedList
+{
+private:
+    LinkList L;
+public:
+    SingleLinkedList()
+    {
+        InitList();
+    }
+    bool InitList_no_head_node();
+    bool InitList();
+    bool Empty();
+    int Length();
+    LNode *GetElem(int i);
+    LNode *LocateElem(int e);
+    bool InsertNextNode(LNode *p, int e);
+    bool InsertPriorNode(LNode *p, int e);
+    bool ListInsert(int i, int e);
+    bool HeadInsert(int e);
+    bool ListDelete(int i, int &e);
+    bool DeleteNode(LNode *p);
+    void visit();
+    // 尚未完成修改
+};
+
 // 初始化一个空的单链表 init an empty single linked list
-bool InitList_no_head_node(LinkList &L)
+bool SingleLinkedList::InitList_no_head_node()
 {
     L = nullptr; // 空表，暂时没有任何结点 empty list
     return true;
 }
 
 // 初始化一个空的单链表（带头结点） init an empty single linked list(have head node)
-bool InitList(LinkList &L)
+bool SingleLinkedList::InitList()
 {
     L = (LNode *)malloc(sizeof(LNode)); // 分配一个头结点 
     if (L == nullptr) // 内存不足，分配失败
@@ -44,7 +69,7 @@ bool InitList(LinkList &L)
 }
 
 // 判断单链表是否为空 judge whether the single linked list is empty
-bool Empty(LinkList L)
+bool SingleLinkedList:: Empty()
 {
     /* if (L == nullptr)
         return true;
@@ -56,7 +81,7 @@ bool Empty(LinkList L)
 }
 
 // 求表的长度
-int Length(LinkList L)
+int SingleLinkedList::Length()
 {
     int len = 0; // 统计表长
     LNode *p = L;
@@ -70,7 +95,7 @@ int Length(LinkList L)
 
 // 查找操作
 // 按位查找 返回第 i 个元素（带头结点）
-LNode *GetElem(LinkList L, int i)
+LNode *SingleLinkedList::GetElem(int i)
 {
     if (i < 0)
     {
@@ -88,7 +113,7 @@ LNode *GetElem(LinkList L, int i)
 }
 // 按值查找 找到数据域等于 e 的结点
 // LNode *LocateElem(LinkList L, ElemType e)
-LNode *LocateElem(LinkList L, int e)
+LNode *SingleLinkedList::LocateElem(int e)
 {
     LNode *p = L->next;
     // 从第 1 个结点开始查找数据域为 e 的结点
@@ -101,7 +126,7 @@ LNode *LocateElem(LinkList L, int e)
 
 // 后插操作：在 p 结点之后插入元素
 // bool InsertNextNode(LNode *p, ElemType e)
-bool InsertNextNode(LNode *p, int e)
+bool SingleLinkedList::InsertNextNode(LNode *p, int e)
 {
     if (p == nullptr)
         return false;
@@ -116,7 +141,7 @@ bool InsertNextNode(LNode *p, int e)
 
 // 前插操作：在 p 结点之前插入元素 e
 // bool InsertPriorNode(LNode *p, ElemType e)
-bool InsertPriorNode(LNode *p, int e)
+bool SingleLinkedList::InsertPriorNode(LNode *p, int e)
 {
     if (p == nullptr)
         return false;
@@ -131,7 +156,7 @@ bool InsertPriorNode(LNode *p, int e)
 }
 
 // 插入操作 在表 L 中第 i 个位置上插入指定元素 e
-bool ListInsert(LinkList &L, int i, int e)
+bool SingleLinkedList::ListInsert(int i, int e)
 {
     // 在第 i 个位置插入元素 e 带头结点
     if (i < 1)
@@ -147,7 +172,7 @@ bool ListInsert(LinkList &L, int i, int e)
         p = p->next;
         j ++;
     } */
-    LNode *p = GetElem(L, i - 1);
+    LNode *p = GetElem(i - 1);
 
     /* if (p == nullptr) // i 值不合法
     {
@@ -162,14 +187,14 @@ bool ListInsert(LinkList &L, int i, int e)
 }
 
 // Head insert element
-bool HeadInsert(LinkList &L, int e)
+bool SingleLinkedList::HeadInsert(int e)
 {
     return InsertNextNode(Head, e);
 }
 
 // 删除操作 删除表 L 中第 i 个位置的元素，并用 e 返回删除元素的值
 // bool ListDelete(LinkList &L, int i, ElemType &e)
-bool ListDelete(LinkList &L, int i, int &e)
+bool SingleLinkedList::ListDelete(int i, int &e)
 {
     // 在第 i 个位置插入元素 e 带头结点
     if (i < 1)
@@ -185,7 +210,7 @@ bool ListDelete(LinkList &L, int i, int &e)
         p = p->next;
         j ++;
     } */
-    LNode *p = GetElem(L, i - 1);
+    LNode *p = GetElem(i - 1);
     if (p == nullptr)   // i 值不合法
         return false;
     if (p->next == nullptr) // 第 i - 1 个结点之后已无其他结点
@@ -198,7 +223,7 @@ bool ListDelete(LinkList &L, int i, int &e)
 }
 
 // 删除指定结点 p
-bool DeleteNode(LNode *p)
+bool SingleLinkedList::DeleteNode(LNode *p)
 {
     if (p == nullptr)
         return false;
@@ -207,4 +232,15 @@ bool DeleteNode(LNode *p)
     p->next = q->next;
     free(q);
     return true;
+}
+
+void SingleLinkedList::visit()
+{
+    LNode *p = L->next; // 指向头结点的下一个结点
+    while(p != nullptr)
+    {
+        std::cout << p->data << " --> ";
+        p = p->next;
+    }
+    std::cout << "NULL" << std::endl;
 }

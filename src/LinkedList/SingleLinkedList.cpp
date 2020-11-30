@@ -4,38 +4,26 @@ int main(void)
     using namespace std;
     LNode *tmpnode;
     int e;
-    LinkList L;
-    InitList(L);
-    bool emp = Empty(L);
-    cout << emp << endl;
-    int len = Length(L);
-    cout << len << endl;
+    SingleLinkedList list;
+    list.Empty();
+    list.HeadInsert(1);
+    list.HeadInsert(2);
+    list.HeadInsert(3);
+    list.visit();
 
-    HeadInsert(L, 1);
-    HeadInsert(L, 2);
-    HeadInsert(L, 3);
-    HeadInsert(L, 4);
-    HeadInsert(L, 5);
+    // cout << list.GetElem(2)->data << endl;
+    list.ListInsert(2, 5);
+    list.visit();
 
-    emp = Empty(L);
-    cout << emp << endl;
-    len = Length(L);
-    cout << len << endl;
-    tmpnode = GetElem(L, 1);
-    cout << tmpnode << endl;
-    tmpnode = GetElem(L, 3);
-    tmpnode = GetElem(L, 7);
+    // cout << list.GetElem(2)->data << endl;
+    // cout << list.LocateElem(3)->data << endl;
 
-    tmpnode = LocateElem(L, 1);
-    tmpnode = LocateElem(L, 5);
-    tmpnode = LocateElem(L, 7);
+    list.DeleteNode(list.GetElem(3));
+    list.ListDelete(3, e);
+    cout << e << endl;
+    list.visit();
 
-    emp = ListDelete(L, 4, e);
-    emp = ListDelete(L, 2, e);
-    emp = ListDelete(L, 5, e);
-
-    DeleteNode(LocateElem(L, 5));
-    DeleteNode(LocateElem(L, 3));
+    list.Empty();
 
     return 0;
 }

@@ -16,8 +16,28 @@ typedef struct DNode {  // 定义单链表结点类型
 DLinkList Head = nullptr;
 DLinkList Tail = nullptr;
 
+class DoubleLinkedList
+{
+private:
+    DLinkList L;
+public:
+    DoubleLinkedList()
+    {
+        InitDLinkList();
+    }
+    bool InitDLinkList();
+    bool Empty();
+    bool InsertNextDNode(DNode *p, DNode *s);
+    bool InsertNextDNode(DNode *p, int e);
+    bool HeadInsert(DNode *e);
+    bool HeadInsert(int e);
+    bool DeleteNextNode(DNode *p);
+    void DestoryList();
+    void visit();
+};
+
 // 初始化双链表
-bool InitDLinkList(DLinkList &L)
+bool DoubleLinkedList::InitDLinkList()
 {
     L = (DNode *) malloc(sizeof(DNode)); // 分配一个头结点
     if (L == nullptr)   // 内存不足，分配失败
@@ -30,13 +50,13 @@ bool InitDLinkList(DLinkList &L)
 }
 
 // 判断双链表是否为空（带头结点）
-bool Empty(DLinkList L)
+bool DoubleLinkedList::Empty()
 {
     return (L->next == nullptr);
 }
 
 // 在 p 结点之后插入 s 结点
-bool InsertNextDNode(DNode *p, DNode *s)
+bool DoubleLinkedList::InsertNextDNode(DNode *p, DNode *s)
 {
     if (p == nullptr || s == nullptr) // 非法参数
         return false;
@@ -57,7 +77,7 @@ bool InsertNextDNode(DNode *p, DNode *s)
 }
 
 // 在 p 结点之后插入 e 元素
-bool InsertNextDNode(DNode *p, int e)
+bool DoubleLinkedList::InsertNextDNode(DNode *p, int e)
 {
     DNode *s = (DNode *)malloc(sizeof(DNode));
     s->data = e;
@@ -80,19 +100,19 @@ bool InsertNextDNode(DNode *p, int e)
 }
 
 // 头插法
-bool HeadInsert(DLinkList &L, DNode *e)
+bool DoubleLinkedList::HeadInsert(DNode *e)
 {
     return InsertNextDNode(Head, e);
 }
 
 // 头插法
-bool HeadInsert(DLinkList &L, int e)
+bool DoubleLinkedList::HeadInsert(int e)
 {
     return InsertNextDNode(Head, e);
 }
 
 // 删除操作
-bool DeleteNextNode(DNode *p)
+bool DoubleLinkedList::DeleteNextNode(DNode *p)
 {
     if (p == nullptr)
         return false;
@@ -113,7 +133,7 @@ bool DeleteNextNode(DNode *p)
 }
 
 // 销毁一个双链表
-void DestoryList(DLinkList &L)
+void DoubleLinkedList::DestoryList()
 {
     // 循环释放各个数据结点
     while(L->next != nullptr)
@@ -123,8 +143,9 @@ void DestoryList(DLinkList &L)
 }
 
 // 遍历操作
-void visit(DNode *p)
+void DoubleLinkedList::visit()
 {
+    DNode *p = L;
     // 后向遍历
     while(p != nullptr)
     {
