@@ -2,24 +2,31 @@
 int main(void)
 {
     using namespace std;
-    SqQueue Q;
-    InitQueue(Q);
-    QueueEmpty(Q);
-    QueueFull(Q);
+    Queue queue;
+    queue.InitQueue();
+    queue.QueueEmpty();
+    queue.QueueFull();
 
     int e = 1;
-    while (EnQueue(Q, e++) != false) ;
+    while (queue.EnQueue(e++) != false) ;
     cout << "The queue is full now." << endl;
-    visit(Q);
+    queue.visit();
 
-    GetHead(Q, e);
+    queue.GetHead(e);
     cout << "GetHead = " << e << endl;
 
-    DeQueue(Q, e);
+    queue.DeQueue(e);
     cout << "DeQueue = " << e << endl;
 
-    GetHead(Q, e);
+    queue.DeQueue(e);
+    cout << "DeQueue = " << e << endl;
+
+    queue.GetHead(e);
     cout << "GetHead = " << e << endl;
-    visit(Q);
+    queue.visit();
+    queue.EnQueue(11);
+    queue.EnQueue(22);
+    queue.EnQueue(33);
+    queue.visit();
     return 0;
 }

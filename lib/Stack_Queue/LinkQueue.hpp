@@ -13,8 +13,21 @@ typedef struct {
     LinkNode *front, *rear; // 队列的队头和队尾指针
 } LinkQueue;
 
+class LQueue
+{
+private:
+    LinkQueue Q;
+public:
+    void InitQueue();
+    bool isEmpty();
+    void EnQueue(int x);
+    bool DeQueue(int &x);
+    void GetHead(int &x);
+    void visit();
+};
+
 // 初始化队列（带头结点）
-void InitQueue(LinkQueue &Q)
+void LQueue::InitQueue()
 {
     // 初始时 front、rear 都指向头结点
     Q.front = Q.rear = (LinkNode *)malloc(sizeof(LinkNode));
@@ -22,7 +35,7 @@ void InitQueue(LinkQueue &Q)
 }
 
 // 判断队列是否为空
-bool isEmpty(LinkQueue Q)
+bool LQueue::isEmpty()
 {
     return (Q.front == Q.rear);
 }
@@ -30,7 +43,7 @@ bool isEmpty(LinkQueue Q)
 // 新元素入队（带头结点）
 // 注意第一个元素入队
 // void EnQueue(LinkQueue &Q, ElemType x)
-void EnQueue(LinkQueue &Q, int x)
+void LQueue::EnQueue(int x)
 {
     LinkNode *s = (LinkNode *)malloc(sizeof(LinkNode));
     s->data = x;
@@ -42,9 +55,9 @@ void EnQueue(LinkQueue &Q, int x)
 // 出队（带头结点）
 // 注意最后一个元素出队
 // bool DeQueue(LinkQueue &Q, ElemType &x)
-bool DeQueue(LinkQueue &Q, int &x)
+bool LQueue::DeQueue(int &x)
 {
-    if (isEmpty(Q))
+    if (isEmpty())
         return false;   // 空队
     LinkNode *p = Q.front->next;
     x = p->data;             // 用变量 x 返回队头元素
@@ -55,12 +68,12 @@ bool DeQueue(LinkQueue &Q, int &x)
     return true;
 }
 
-void GetHead(LinkQueue Q, int &x)
+void LQueue::GetHead(int &x)
 {
     x = Q.front->next->data;
 }
 
-void visit(LinkQueue Q)
+void LQueue::visit()
 {
     LinkNode *p = Q.front;
     while (p != Q.rear)

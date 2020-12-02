@@ -16,6 +16,20 @@ typedef struct {
     int top1;
 } ShStack;
 
+class Stack
+{
+private:
+    SqStack S;
+public:
+    void InitStack();
+    bool isEmpty();
+    bool isFull();
+    bool Push(int x);
+    bool Pop(int &x);
+    bool Pop(ElemType &x);
+    bool GetTop(int &x);
+};
+
 void InitStack(ShStack &S)
 {
     S.top0 = -1;
@@ -23,28 +37,28 @@ void InitStack(ShStack &S)
 }
 
 // 初始化栈 Init stack
-void InitStack(SqStack &S)
+void Stack::InitStack()
 {
     S.top = -1;
 }
 
 // 判断栈是否为空
-bool isEmpty(SqStack S)
+bool Stack::isEmpty()
 {
     return (S.top == -1);
 }
 
 // 判断栈是否已满
-bool isFull(SqStack S)
+bool Stack::isFull()
 {
     return (S.top == MaxSize - 1);
 }
 
 // 新元素进栈
 // bool Push(SqStack &S, ElemType x)
-bool Push(SqStack &S, int x)
+bool Stack::Push(int x)
 {
-    if (isFull(S))      // 栈满，返回 false
+    if (isFull())      // 栈满，返回 false
         return false;
     S.top = S.top + 1;  // 指针先加 1
     S.data[S.top] = x;  // 新元素入栈
@@ -52,18 +66,18 @@ bool Push(SqStack &S, int x)
 }
 
 // 出栈操作
-bool Pop(SqStack &S, ElemType &x)
+bool Stack::Pop(ElemType &x)
 {
-    if (isEmpty(S))     // 栈空，返回 false
+    if (isEmpty())     // 栈空，返回 false
         return false;
     x = S.data[S.top];  // 栈顶元素先出栈
     S.top = S.top - 1;  // 指针再减 1
     return true;
 }
 
-bool Pop(SqStack &S, int &x)
+bool Stack::Pop(int &x)
 {
-    if (isEmpty(S))     // 栈空，返回 false
+    if (isEmpty())     // 栈空，返回 false
         return false;
     x = S.data[S.top];  // 栈顶元素先出栈
     S.top = S.top - 1;  // 指针再减 1
@@ -72,9 +86,9 @@ bool Pop(SqStack &S, int &x)
 
 // 读取栈顶元素
 // bool GetTop(SqStack S, ElemType &x)
-bool GetTop(SqStack S, int &x)
+bool Stack::GetTop(int &x)
 {
-    if (isEmpty(S))     // 栈空，返回 false
+    if (isEmpty())     // 栈空，返回 false
         return false;
     x = S.data[S.top];  // x 记录栈顶元素
     return true;
@@ -90,21 +104,20 @@ bool bracketCheck(char str[], int length)
      * 匹配失败情况：
      * 1️⃣左括号单身2️⃣右括号单身3️⃣左右括号不匹配
      **/
-    SqStack S;
-    InitStack(S);
+    Stack S;
     for (int i = 0; i < length; i ++)
     {
         if (str[i] == '(' || str[i] == '[' || str[i] == '{')
         {
-            Push(S, str[i]);
+            S.Push(str[i]);
         }
         else
         {
-            if (isEmpty(S))
+            if (S.isEmpty())
                 return false;
             
             char topElem;
-            Pop(S, topElem);
+            S.Pop(topElem);
             if (str[i] == ')' && topElem != '(')
                 return false;
             if (str[i] == ']' && topElem != '[')
@@ -113,5 +126,5 @@ bool bracketCheck(char str[], int length)
                 return false;
         }
     }
-    return isEmpty(S);
+    return S.isEmpty();
 }

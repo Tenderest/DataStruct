@@ -2,26 +2,30 @@
 int main(void)
 {
     using namespace std;
-    SqStack sq;
+    Stack sq;
     int top;
     int pop;
-    InitStack(sq);
-    Push(sq, 1);
-    Push(sq, 2);
-    Push(sq, 3);
-    Push(sq, 4);
-    Push(sq, 5);
-    Push(sq, 6);
-    GetTop(sq, top);
-    cout << top << endl;
+    sq.InitStack();
+    sq.Push(1);
+    sq.Push(2);
+    sq.Push(3);
+    sq.Push(4);
+    sq.Push(5);
+    sq.Push(6);
+    sq.GetTop(top);
+    cout << "GetTop = " << top << endl;
 
-    Pop(sq, pop);
-    cout << pop << endl;
+    sq.Pop(pop);
+    cout << "PopTop = " << pop << endl;
 
-    Pop(sq, pop);
-    cout << pop << endl;
+    sq.Pop(pop);
+    cout << "PopTop = " << pop << endl;
     
-    GetTop(sq, top);
-    cout << top << endl;
+    sq.GetTop(top);
+    cout << "GetTop = " << top << endl;
+    sq.Push(11);
+    sq.Push(22);
+    sq.GetTop(top);
+    cout << "GetTop = " << top << endl;
     return 0;
 }

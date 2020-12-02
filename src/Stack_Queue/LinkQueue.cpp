@@ -2,32 +2,32 @@
 int main(void)
 {
     using namespace std;
-    LinkQueue Q;
-    InitQueue(Q);
-    cout << "isEmpty = " << isEmpty(Q) << endl;
-    EnQueue(Q, 1);
-    EnQueue(Q, 2);
-    EnQueue(Q, 3);
-    EnQueue(Q, 11);
-    EnQueue(Q, 22);
-    EnQueue(Q, 33);
+    LQueue lq;
+    lq.InitQueue();
+    cout << "isEmpty = " << lq.isEmpty() << endl;
+    lq.EnQueue(1);
+    lq.EnQueue(2);
+    lq.EnQueue(3);
+    lq.EnQueue(11);
+    lq.EnQueue(22);
+    lq.EnQueue(33);
 
     int e;
-    GetHead(Q, e);
+    lq.GetHead(e);
     cout << "GetHead = " << e << endl;
-    visit(Q);
+    lq.visit();
 
-    DeQueue(Q, e);
+    
+    lq.DeQueue(e);
     cout << "DeQueue = " << e << endl;
-    visit(Q);
-    DeQueue(Q, e);
+    lq.DeQueue(e);
     cout << "DeQueue = " << e << endl;
-    DeQueue(Q, e);
+    lq.DeQueue(e);
     cout << "DeQueue = " << e << endl;
-    DeQueue(Q, e);
+    lq.DeQueue(e);
     cout << "DeQueue = " << e << endl;
-    DeQueue(Q, e);
+    lq.DeQueue(e);
     cout << "DeQueue = " << e << endl;
-    visit(Q);
+    lq.visit();
     return 0;
 }
